@@ -1,0 +1,174 @@
+{
+  "pluginAlias": "XfinityCameras",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Xfinity Home cameras in Apple Home: snapshots, motion sensors and a picture live view. The security panel, sensors and lights are supported experimentally for accounts where Comcast's cloud still links the panel. Not affiliated with Comcast. See the README for how to get a refresh token.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "Xfinity Cameras",
+        "required": true
+      },
+      "refreshToken": {
+        "title": "Refresh token (seed)",
+        "type": "string",
+        "description": "Only needed the first time, or after Xfinity rejects the saved token. The plugin stores rotated tokens itself; you can clear this field after the first successful start."
+      },
+      "pin": {
+        "title": "Keypad PIN",
+        "type": "string",
+        "description": "Your Xfinity Home code. Required to arm and disarm from Apple Home. Leave blank for read-only."
+      },
+      "entryDelayAsTriggered": {
+        "title": "Show entry delay as Triggered",
+        "type": "boolean",
+        "default": true
+      },
+      "nightMode": {
+        "title": "Apple Home \"Night\" arms as",
+        "type": "string",
+        "default": "night",
+        "oneOf": [
+          {
+            "title": "Xfinity Night",
+            "enum": [
+              "night"
+            ]
+          },
+          {
+            "title": "Xfinity Stay",
+            "enum": [
+              "stay"
+            ]
+          },
+          {
+            "title": "Hide Night in Apple Home",
+            "enum": [
+              "disabled"
+            ]
+          }
+        ]
+      },
+      "temperatureSensors": {
+        "title": "Add temperature sensors from door/motion sensors",
+        "type": "boolean",
+        "default": false
+      },
+      "refreshIntervalSeconds": {
+        "title": "Full refresh interval (seconds)",
+        "type": "integer",
+        "default": 300,
+        "minimum": 60
+      },
+      "useEventStream": {
+        "title": "Use real-time event stream",
+        "type": "boolean",
+        "default": true
+      },
+      "hideDevices": {
+        "title": "Hide devices (names or ids)",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "cameras": {
+        "title": "Add cameras (snapshots + motion sensor)",
+        "type": "boolean",
+        "default": true
+      },
+      "cameraMotionSeconds": {
+        "title": "Camera motion stays on for (seconds)",
+        "type": "integer",
+        "default": 30,
+        "minimum": 5,
+        "maximum": 600
+      },
+      "cameraPollSeconds": {
+        "title": "Check cameras for new motion every (seconds)",
+        "type": "integer",
+        "default": 30,
+        "minimum": 15,
+        "maximum": 600
+      },
+      "liveView": {
+        "title": "Live view: show the latest picture when a camera is opened",
+        "type": "boolean",
+        "default": true,
+        "description": "Needs ffmpeg on the Homebridge machine. Real live video isn't available from Comcast."
+      },
+      "liveViewRefreshSeconds": {
+        "title": "Live view picture refresh (seconds)",
+        "type": "integer",
+        "default": 1,
+        "minimum": 1,
+        "maximum": 60,
+        "description": "How often a new picture is fetched while a camera is open. Comcast's picture may update less often than this; the log reports the real rate after each viewing."
+      },
+      "ffmpegPath": {
+        "title": "ffmpeg path",
+        "type": "string",
+        "placeholder": "ffmpeg"
+      },
+      "advanced": {
+        "title": "Advanced: endpoint overrides",
+        "type": "object",
+        "properties": {
+          "apiBase": {
+            "title": "API base URL",
+            "type": "string",
+            "placeholder": "https://xhomeapi-lb-prod.codebig2.net"
+          },
+          "oauthUrl": {
+            "title": "OAuth token URL",
+            "type": "string",
+            "placeholder": "https://oauth.xfinity.com/oauth/token"
+          }
+        }
+      }
+    }
+  },
+  "layout": [
+    "name",
+    "refreshToken",
+    "pin",
+    {
+      "type": "fieldset",
+      "title": "Cameras",
+      "expandable": true,
+      "items": [
+        "cameras",
+        "cameraMotionSeconds",
+        "cameraPollSeconds",
+        "liveView",
+        "liveViewRefreshSeconds",
+        "ffmpegPath"
+      ]
+    },
+    {
+      "type": "fieldset",
+      "title": "Behaviour",
+      "expandable": true,
+      "items": [
+        "entryDelayAsTriggered",
+        "nightMode",
+        "temperatureSensors",
+        "hideDevices"
+      ]
+    },
+    {
+      "type": "fieldset",
+      "title": "Advanced",
+      "expandable": true,
+      "items": [
+        "refreshIntervalSeconds",
+        "useEventStream",
+        "advanced.apiBase",
+        "advanced.oauthUrl"
+      ]
+    }
+  ]
+}

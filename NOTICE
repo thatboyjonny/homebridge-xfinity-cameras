@@ -1,0 +1,8 @@
+homebridge-xfinity-cameras
+Copyright 2026 thatboyjonny
+
+This product is derived from homebridge-xfinityhome and xfinityhome by Kolton Bloom (bloomkd46),
+licensed under the Apache License, Version 2.0. API knowledge (endpoints, payload shapes, client
+identifiers) comes from those projects; the code has been rewritten.
+
+Not affiliated with, endorsed by, or supported by Comcast Corporation or Xfinity.

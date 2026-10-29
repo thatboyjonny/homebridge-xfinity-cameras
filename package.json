@@ -1,0 +1,56 @@
+{
+  "name": "homebridge-xfinity-cameras",
+  "displayName": "Xfinity Cameras",
+  "version": "1.0.0",
+  "description": "Xfinity Home cameras in Apple Home (snapshots, motion, picture live view), plus experimental Xfinity security panel, sensors and lights. Unofficial; not affiliated with Comcast.",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "bin": {
+    "xfh-doctor": "dist/tools/doctor.js"
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.map",
+    "config.schema.json",
+    "tools",
+    "README.md",
+    "CAPTURE.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": "^20.18.0 || ^22.10.0 || ^24.0.0",
+    "homebridge": "^1.8.0 || ^2.0.0"
+  },
+  "keywords": [
+    "homebridge-plugin",
+    "homebridge",
+    "xfinity",
+    "xfinity-home",
+    "comcast",
+    "xcam",
+    "camera",
+    "homekit"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "build:test": "rm -rf build-test && tsc -p tsconfig.test.json",
+    "test": "npm run build:test && node --test --test-concurrency=1 build-test/test/unit.test.js build-test/test/platform.test.js",
+    "prepack": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "homebridge": "2.4.0",
+    "typescript": "^5.6.3"
+  },
+  "author": "thatboyjonny",
+  "homepage": "https://github.com/thatboyjonny/homebridge-xfinity-cameras#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thatboyjonny/homebridge-xfinity-cameras.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thatboyjonny/homebridge-xfinity-cameras/issues"
+  }
+}
